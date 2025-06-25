@@ -971,12 +971,6 @@ spec:
                     type: object
                   ccMetricReporterEnabled:
                     type: boolean
-                  consulAclEnabled:
-                    type: boolean
-                  consulAuthMethod:
-                    type: string
-                  consulDiscovery:
-                    type: boolean
                   customLabels:
                     additionalProperties:
                       type: string
