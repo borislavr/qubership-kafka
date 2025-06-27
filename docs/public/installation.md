@@ -1530,7 +1530,6 @@ You can use the following tags:
         * `unauthorized_access` tag runs `Unauthorized Access` test.
         * `not_evictable` tag runs `Not Evictable Backup` test.
         * `restore_by_regex` tag runs `Granular Backup And Restore By Topic Regex` test.
-    * `kafka_status_in_consul` tag runs `Check Kafka Status In Consul` test.
     * `kafka_consumer_producer` tag runs `Test Producing And Consuming Data` test.
     * `kafka_crud` tag runs all tests for creating, reading, updating and removing Kafka data.
     * `kafka_ha` tag runs all tests connected to HA scenarios:

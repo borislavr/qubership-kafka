@@ -6,7 +6,6 @@ require (
 	github.com/IBM/sarama v1.43.0
 	github.com/go-logr/logr v0.4.0
 	github.com/go-yaml/yaml v2.1.0+incompatible
-	github.com/hashicorp/consul/api v1.11.0
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/sethvargo/go-password v0.2.0
 	github.com/stretchr/testify v1.8.4

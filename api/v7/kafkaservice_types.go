@@ -83,9 +83,6 @@ type Kafka struct {
 	EnableAuditLogs         *bool                   `json:"enableAuditLogs,omitempty"`
 	TokenRolesPath          string                  `json:"tokenRolesPath,omitempty"`
 	EnableAuthorization     *bool                   `json:"enableAuthorization,omitempty"`
-	RegisteredServiceName   string                  `json:"registeredServiceName,omitempty"`
-	KafkaDiscoveryMeta      map[string]string       `json:"kafkaDiscoveryMeta,omitempty"`
-	KafkaDiscoveryTags      []string                `json:"kafkaDiscoveryTags,omitempty"`
 	RollingUpdate           bool                    `json:"rollingUpdate,omitempty"`
 	CustomLabels            map[string]string       `json:"customLabels,omitempty"`
 	DebugContainer          bool                    `json:"debugContainer,omitempty"`

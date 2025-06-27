@@ -1004,14 +1004,6 @@ spec:
                     type: integer
                   heapSize:
                     type: integer
-                  kafkaDiscoveryMeta:
-                    additionalProperties:
-                      type: string
-                    type: object
-                  kafkaDiscoveryTags:
-                    items:
-                      type: string
-                    type: array
                   nodeLabelNameForRack:
                     type: string
                   oauth:
