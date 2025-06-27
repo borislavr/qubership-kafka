@@ -56,6 +56,12 @@ type KafkaSpec struct {
 	EnableAuditLogs         *bool                   `json:"enableAuditLogs,omitempty"`
 	TokenRolesPath          string                  `json:"tokenRolesPath,omitempty"`
 	EnableAuthorization     *bool                   `json:"enableAuthorization,omitempty"`
+	DiscoveryEnabled        bool                    `json:"consulDiscovery,omitempty"`
+	RegisteredServiceName   string                  `json:"registeredServiceName,omitempty"`
+	KafkaDiscoveryMeta      map[string]string       `json:"kafkaDiscoveryMeta,omitempty"`
+	KafkaDiscoveryTags      []string                `json:"kafkaDiscoveryTags,omitempty"`
+	ConsulAclEnabled        bool                    `json:"consulAclEnabled,omitempty"`
+	ConsulAuthMethod        string                  `json:"consulAuthMethod,omitempty"`
 	RollingUpdate           bool                    `json:"rollingUpdate,omitempty"`
 	CustomLabels            map[string]string       `json:"customLabels,omitempty"`
 	DefaultLabels           map[string]string       `json:"defaultLabels,omitempty"`

@@ -395,6 +395,12 @@ spec:
                 type: object
               ccMetricReporterEnabled:
                 type: boolean
+              consulAclEnabled:
+                type: boolean
+              consulAuthMethod:
+                type: string
+              consulDiscovery:
+                type: boolean
               customLabels:
                 additionalProperties:
                   type: string
@@ -432,6 +438,14 @@ spec:
                 type: integer
               heapSize:
                 type: integer
+              kafkaDiscoveryMeta:
+                additionalProperties:
+                  type: string
+                type: object
+              kafkaDiscoveryTags:
+                items:
+                  type: string
+                type: array
               kraft:
                 properties:
                   enabled:
@@ -1500,6 +1514,12 @@ spec:
             type: object
           ccMetricReporterEnabled:
             type: boolean
+          consulAclEnabled:
+            type: boolean
+          consulAuthMethod:
+            type: string
+          consulDiscovery:
+            type: boolean
           customLabels:
             additionalProperties:
               type: string
@@ -1533,6 +1553,14 @@ spec:
             type: integer
           heapSize:
             type: integer
+          kafkaDiscoveryMeta:
+            additionalProperties:
+              type: string
+            type: object
+          kafkaDiscoveryTags:
+            items:
+              type: string
+            type: array
           nodeLabelNameForRack:
             type: string
           oauth:
