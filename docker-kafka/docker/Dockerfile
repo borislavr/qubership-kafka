@@ -43,7 +43,7 @@ ARG DISTRO_NAME=kafka_2.12-${KAFKA_VERSION}
 # Download Apache Kafka and install
 RUN set -x \
     && export DISTR_DIR="$(mktemp -d)" \
-    && wget \
+    && wget  --timeout=600 --retry-connrefused --retry-on-host-error\
         -nv \
         -O ${DISTR_DIR}/${DISTRO_NAME}.tgz \
         "https://downloads.apache.org/kafka/${KAFKA_VERSION}/${DISTRO_NAME}.tgz" \
