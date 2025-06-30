@@ -90,7 +90,7 @@ jobs:
 #          dry-run: true
 #          component: ${{ toJson(matrix.component) }}
 #          platforms: ${{ needs.load-docker-build-components.outputs.platforms }}
-3          tags: "${{ env.IMAGE_VERSION }}"
+#          tags: "${{ env.IMAGE_VERSION }}"
 #        env:
 #          GITHUB_TOKEN: ${{ github.token }}
 
@@ -200,11 +200,9 @@ jobs:
           ref: ${{ inputs.release }}
 
       - name: Archive and Upload Assets
-        uses: netcracker/qubership-workflow-hub/actions/archive-and-upload-assets@main
+        uses: netcracker/qubership-workflow-hub/actions/assets-action@main
         with:
-          config-path: './.github/assets-config.yml'
-          dist-path: './dist'
-          upload: true
-          ref: ${{ inputs.release }}
+          tag: ${{ inputs.release }}
+          item-path: .cr-release-packages/*.tgz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
