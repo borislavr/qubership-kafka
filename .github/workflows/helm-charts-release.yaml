@@ -70,31 +70,33 @@ jobs:
           echo "components=${components}" >> $GITHUB_OUTPUT
           echo "platforms=${platforms}" >> $GITHUB_OUTPUT
 
-  docker-check-build:
-    needs: [load-docker-build-components, check-tag]
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        component: ${{ fromJson(needs.load-docker-build-components.outputs.component) }}
-    steps:
-      - name: Get version for current component
-        id: get-version
-        run: |
-          echo "IMAGE=${{ matrix.component.name }}" >> $GITHUB_ENV
-      - name: Docker build
-        uses: netcracker/qubership-workflow-hub/actions/docker-action@main
-        with:
-          ref: ${{ github.ref }}
-          download-artifact: false
-          dry-run: true
-          component: ${{ toJson(matrix.component) }}
-          platforms: ${{ needs.load-docker-build-components.outputs.platforms }}
-          tags: "${{ env.IMAGE_VERSION }}"
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+#  docker-check-build:
+#    needs: [load-docker-build-components, check-tag]
+#    runs-on: ubuntu-latest
+#    strategy:
+#      fail-fast: true
+#      matrix:
+#        component: ${{ fromJson(needs.load-docker-build-components.outputs.component) }}
+#    steps:
+#      - name: Get version for current component
+#        id: get-version
+#        run: |
+#          echo "IMAGE=${{ matrix.component.name }}" >> $GITHUB_ENV
+#      - name: Docker build
+#        uses: netcracker/qubership-workflow-hub/actions/docker-action@main
+#        with:
+#          ref: ${{ github.ref }}
+#          download-artifact: false
+#          dry-run: true
+#          component: ${{ toJson(matrix.component) }}
+#          platforms: ${{ needs.load-docker-build-components.outputs.platforms }}
+3          tags: "${{ env.IMAGE_VERSION }}"
+#        env:
+#          GITHUB_TOKEN: ${{ github.token }}
+
   chart-release-prepare:
-    needs: [check-tag, load-docker-build-components, docker-check-build]
+    needs: [check-tag, load-docker-build-components]
+#    needs: [check-tag, load-docker-build-components, docker-check-build]
     runs-on: ubuntu-latest
     outputs:
       images-versions: ${{ steps.update-versions.outputs.images-versions }}
@@ -125,35 +127,35 @@ jobs:
   #        ref: "release-${{ inputs.release }}"
   #        create-tag: true
   #        check-tag: false
-  docker-build:
+#  docker-build:
   #  needs: [tag, chart-release-prepare, load-docker-build-components]
-    needs: [chart-release-prepare, load-docker-build-components]
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        component: ${{ fromJson(needs.load-docker-build-components.outputs.component) }}
-    steps:
-      - name: Get version for current component
-        id: get-version
-        run: |
-          echo "IMAGE_VERSION=${{ fromJson(needs.chart-release-prepare.outputs.images-versions)[matrix.component.name] || inputs.release }}" >> $GITHUB_ENV
+#    needs: [chart-release-prepare, load-docker-build-components]
+#    runs-on: ubuntu-latest
+#    strategy:
+#      fail-fast: true
+#      matrix:
+#        component: ${{ fromJson(needs.load-docker-build-components.outputs.component) }}
+#    steps:
+#      - name: Get version for current component
+#        id: get-version
+#        run: |
+#          echo "IMAGE_VERSION=${{ fromJson(needs.chart-release-prepare.outputs.images-versions)[matrix.component.name] || inputs.release }}" >> $GITHUB_ENV
 
-      - name: Docker build
-        uses: netcracker/qubership-workflow-hub/actions/docker-action@main
-        with:
-          ref: release-${{ inputs.release }}
-          download-artifact: false
-          dry-run: false
-          component: ${{ toJson(matrix.component) }}
-          platforms: ${{ needs.load-docker-build-components.outputs.platforms }}
-          tags: "${{ env.IMAGE_VERSION }},latest"
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+#      - name: Docker build
+#        uses: netcracker/qubership-workflow-hub/actions/docker-action@main
+#        with:
+#          ref: release-${{ inputs.release }}
+#          download-artifact: false
+#          dry-run: false
+#          component: ${{ toJson(matrix.component) }}
+#          platforms: ${{ needs.load-docker-build-components.outputs.platforms }}
+#          tags: "${{ env.IMAGE_VERSION }},latest"
+#        env:
+#          GITHUB_TOKEN: ${{ github.token }}
 
   charts-release:
 #    needs: [tag, docker-build]
-    needs: [docker-build]
+    needs: [chart-release-prepare]
     continue-on-error: true
     runs-on: ubuntu-latest
     steps:
@@ -174,6 +176,7 @@ jobs:
           charts_dir: charts/helm
           release_name_template: "{{ .Version }}"
 #          skip_existing: true
+          skip_upload: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
