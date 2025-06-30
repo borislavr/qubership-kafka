@@ -196,4 +196,4 @@ jobs:
           tag: ${{ inputs.release }}
           item-path: .cr-release-packages/*.tgz
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  upload-assets:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
