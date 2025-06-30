@@ -190,19 +190,10 @@ jobs:
           version: ${{ inputs.release }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  upload-assets:
-    needs: [charts-release]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.release }}
-
-      - name: Archive and Upload Assets
+      - name: Upload Assets
         uses: netcracker/qubership-workflow-hub/actions/assets-action@main
         with:
           tag: ${{ inputs.release }}
           item-path: .cr-release-packages/*.tgz
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  upload-assets:
