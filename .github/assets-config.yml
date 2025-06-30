@@ -2,3 +2,4 @@ archives:
   - source: docs
     outputName: docs
     archiveType: tar
+  - source: .cr-release-packages/*
