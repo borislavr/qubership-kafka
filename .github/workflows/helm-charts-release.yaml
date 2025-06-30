@@ -20,7 +20,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 env:
-  drd_release: ${{ inputs.drd_release }}
+  drd_release: ${{ inputs.drd-release }}
 jobs:
   check-tag:
     runs-on: ubuntu-latest
@@ -114,19 +114,20 @@ jobs:
       - name: "Debug"
         run: |
           echo "Images versions: ${{ steps.update-versions.outputs.images-versions }}"
-  tag:
-    needs: [chart-release-prepare]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create release tag
-        uses: netcracker/qubership-workflow-hub/actions/tag-action@main
-        with:
-          tag-name: "${{ inputs.release }}"
-          ref: "release-${{ inputs.release }}"
-          create-tag: true
-          check-tag: false
+  #tag:
+  #  needs: [chart-release-prepare]
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - name: Create release tag
+  #      uses: netcracker/qubership-workflow-hub/actions/tag-action@main
+  #      with:
+  #        tag-name: "${{ inputs.release }}"
+  #        ref: "release-${{ inputs.release }}"
+  #        create-tag: true
+  #        check-tag: false
   docker-build:
-    needs: [tag, chart-release-prepare, load-docker-build-components]
+  #  needs: [tag, chart-release-prepare, load-docker-build-components]
+    needs: [chart-release-prepare, load-docker-build-components]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -141,7 +142,7 @@ jobs:
       - name: Docker build
         uses: netcracker/qubership-workflow-hub/actions/docker-action@main
         with:
-          ref: ${{ inputs.release }}
+          ref: release-${{ inputs.release }}
           download-artifact: false
           dry-run: false
           component: ${{ toJson(matrix.component) }}
@@ -151,7 +152,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
   charts-release:
-    needs: [tag, docker-build]
+#    needs: [tag, docker-build]
+    needs: [docker-build]
     continue-on-error: true
     runs-on: ubuntu-latest
     steps:
