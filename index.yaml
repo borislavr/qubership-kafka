@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  kafka:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2025-06-30T16:44:02.647658625Z"
+    description: A Helm chart for Kubernetes
+    digest: ea74bd321f073f96a615ce2423c973af65eb69610d87aa735e028e55414aa948
+    name: kafka
+    type: application
+    urls:
+    - https://github.com/borislavr/qubership-kafka/releases/download/2.2.0/kafka-2.2.0.tgz
+    version: 2.2.0
+generated: "2025-06-30T16:44:02.749431828Z"
