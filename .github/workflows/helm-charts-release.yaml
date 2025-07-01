@@ -156,7 +156,7 @@ jobs:
   charts-release:
 #    needs: [tag, docker-build]
     needs: [chart-release-prepare]
-    continue-on-error: true
+    continue-on-error: false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -174,9 +174,9 @@ jobs:
         uses: netcracker/chart-releaser-action@main
         with:
           charts_dir: charts/helm
-          release_name_template: "{{ .Version }}"
-          skip_existing: true
-          skip_upload: true
+          #release_name_template: "{{ .Version }}"
+          #skip_existing: true
+          #skip_upload: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
@@ -190,10 +190,10 @@ jobs:
           version: ${{ inputs.release }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload Assets
-        uses: netcracker/qubership-workflow-hub/actions/assets-action@main
-        with:
-          tag: ${{ inputs.release }}
-          item-path: .cr-release-packages/*.tgz
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Upload Assets
+#        uses: netcracker/qubership-workflow-hub/actions/assets-action@main
+#        with:
+#          tag: ${{ inputs.release }}
+#          item-path: .cr-release-packages/*.tgz
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
