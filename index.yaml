@@ -11,4 +11,15 @@ entries:
     urls:
     - https://github.com/borislavr/qubership-kafka/releases/download/2.2.0/kafka-2.2.0.tgz
     version: 2.2.0
-generated: "2025-06-30T16:44:02.749431828Z"
+  kafka-service:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-07-01T06:02:56.989795582Z"
+    description: A Helm chart for Kubernetes
+    digest: 4a50ca80c25ebcca37a9dfc41ba443a276b48a8e8e0f96b3577b0e3a6ca49652
+    name: kafka-service
+    type: application
+    urls:
+    - https://github.com/borislavr/qubership-kafka/releases/download/kafka-service-2.2.0/kafka-service-2.2.0.tgz
+    version: 2.2.0
+generated: "2025-07-01T06:02:56.989801623Z"
