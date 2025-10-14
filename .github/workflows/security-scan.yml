@@ -34,6 +34,10 @@ on:
         required: false
         default: true
         type: boolean
+permissions:
+  contents: read
+  security-events: write
+  actions: read
 
 jobs:
   security-scan:
