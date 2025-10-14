@@ -34,6 +34,12 @@ on:
         required: false
         default: true
         type: boolean
+      only-fixed:
+        description: "Show only fixable vulnerabilities"
+        required: false
+        default: true
+        type: boolean
+
 permissions:
   contents: read
   security-events: write
