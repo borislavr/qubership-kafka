@@ -49,4 +49,5 @@ jobs:
       only-high-critical: ${{ inputs.only-high-critical}}
       trivy-scan: ${{ inputs.trivy-scan }}
       grype-scan: ${{ inputs.grype-scan }}
+      only-fixed: ${{ inputs.only-fixed }}
       continue-on-error: ${{ inputs.continue-on-error }}
