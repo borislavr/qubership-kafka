@@ -5,7 +5,7 @@ permissions:
   actions: read
 on:
   release:
-    types: [created]
+  # types: [created]
   # push:
   #   branches:
   #     - '**'
