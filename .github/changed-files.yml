@@ -1,0 +1,16 @@
+files_yaml: |
+  backup-daemon:
+    - 'backup-daemon/**'
+    - '!backup-daemon/**.md'
+  crd-init:
+    - crd-init/**
+    - '!crd-init/**.md'
+  docker-akhq:
+    - docker-akhq/**
+    - '!docker-akhq/**.md'
+  docker-cruise-control:
+    - docker-cruise-control/**
+    - '!docker-cruise-control/**.md'
+  docker-kafka:
+    - docker-kafka/**
+    - '!docker-kafka/**.md'
