@@ -9,7 +9,6 @@ COPY docker/docker-entrypoint.sh /
 COPY docker/config/streaming.desc ${AKHQ_HOME}/config/streaming.desc
 COPY docker/app ${AKHQ_HOME}
 
-# Install misc tools
 RUN set -x \
     && apk add --upgrade --no-cache \
         netcat-openbsd \

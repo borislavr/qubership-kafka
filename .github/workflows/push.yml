@@ -39,7 +39,7 @@ jobs:
       - name: Set output
         run: |
           for f in .github/outputs/*; do
-            echo "$f:\n$(cat $f)"
+            echo "$f: $(cat $f)"
           done
   multiplatform_build:
     needs: changed-files
