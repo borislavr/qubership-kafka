@@ -1,16 +1,43 @@
 files_yaml: |
-  backup-daemon:
-    - 'backup-daemon/**'
-    - '!backup-daemon/**.md'
-  crd-init:
+  qubership-kafka-integration-tests:
+    - integration-tests/**
+  qubership-kafka-crd-init:
     - crd-init/**
-    - '!crd-init/**.md'
-  docker-akhq:
-    - docker-akhq/**
-    - '!docker-akhq/**.md'
-  docker-cruise-control:
-    - docker-cruise-control/**
-    - '!docker-cruise-control/**.md'
-  docker-kafka:
+  qubership-kafka-operator:
+    - Dockerfile
+    - go.*
+    - main.go
+    - api/**
+    - controllers/**
+    - util/**
+    - cfg/**
+    - workers/**
+  qubership-kafka-service-operator:
+    - Dockerfile
+    - go.*
+    - main.go
+    - api/**
+    - controllers/**
+    - util/**
+    - cfg/**
+    - workers/**
+  qubership-kafka-service-transfer:
+    - **
+  qubership-kafka-transfer:
+    - **
+  qubership-kafka-backup-daemon:
+    - backup-daemon/**
+  qubership-kafka-monitoring:
+    - monitoring/**
+  qubership-docker-kafka:
     - docker-kafka/**
-    - '!docker-kafka/**.md'
+  qubership-docker-akhq:
+    - docker-akhq/**
+  qubership-docker-kafka-lag-exporter:
+    - docker-kafka-lag-exporter/**
+  qubership-docker-cruise-control:
+    - docker-cruise-control/**
+  qubership-kafka-mirror-maker-monitoring:
+    - kafka-mirror-maker-monitoring/**
+  qubership-docker-kafka-mirror-maker:
+    - kafka-mirror-maker/**
