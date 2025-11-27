@@ -34,10 +34,13 @@ jobs:
         uses: tj-actions/changed-files@v47
         with:
           files_yaml_from_source_file: .github/changed-files.yml
+          json: true
+          write_output_files: true
       - name: Set output
         run: |
-          echo "all_changed_files=${{ steps.changed-files.outputs.all_changed_files }}" >> $GITHUB_OUTPUT
-          echo "all_changed_files=${{ steps.changed-files.outputs.all_changed_files }}"
+          for f in .github/outputs/*; do
+            echo "$f:\n$(cat $f)"
+          done
   multiplatform_build:
     needs: changed-files
     strategy:
