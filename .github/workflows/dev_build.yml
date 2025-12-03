@@ -96,7 +96,7 @@ jobs:
           replace-symbol: ${{ github.event.inputs.replace-symbol || '_'}}
 
   build:
-    name: Build Docker Images
+    name: ${{ matrix.component.name }} Image Build
     needs: [prepare]
     runs-on: ubuntu-latest
     permissions:
