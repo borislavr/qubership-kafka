@@ -9,7 +9,7 @@ Kafka monitoring consists of the following:
 To monitor kafka metrics, do the following:
 
 - Set up InfluxDB database.
-- Set up Telegraf agent with InfluxDB output plugin and kafka exec input plugin. 
+- Set up Telegraf agent with InfluxDB output plugin and kafka exec input plugin.
 - Set up Grafana and configure datasource (Influxdb).
 - Import json template for Grafana Dashboard.
 
