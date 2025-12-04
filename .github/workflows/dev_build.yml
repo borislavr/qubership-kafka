@@ -108,7 +108,7 @@ jobs:
         component: ${{ fromJson(needs.prepare.outputs.components) }}
     steps:
       - name: Docker
-        uses: netcracker/qubership-workflow-hub/actions/docker-action@0f2be042d7c833c6bf60df85732609b7991fb821 #2.0.0
+        uses: netcracker/qubership-workflow-hub/actions/docker-action@main  # 0f2be042d7c833c6bf60df85732609b7991fb821 #2.0.0
         with:
           ref: ${{ github.ref }}
           dry-run: ${{ github.event.inputs.dry-run || github.event_name == 'pull_request' }}
