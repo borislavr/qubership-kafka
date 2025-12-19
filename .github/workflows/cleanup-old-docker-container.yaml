@@ -34,18 +34,18 @@ permissions:
 
 jobs:
   cleanup:
+    env:
+      GITHUB_EVENT_NAME: ${{ github.event_name }}
+      GITHUB_ACTOR: ${{ github.actor }}
+      THRESHOLD_DAYS: ${{ github.event.inputs.threshold-days || 7 }}
+      INCLUDED_TAGS: ${{ github.event.inputs.included-tags || '*' }}
+      EXCLUDED_TAGS: ${{ github.event.inputs.excluded-tags || 'latest,release*,*.*,semver,main' }}
+      DRY_RUN: ${{ github.event.inputs.dry-run || 'false' }}
+      DEBUG: ${{ github.event.inputs.debug || 'false' }}
     name: "Cleanup Old Docker Container Versions"
     runs-on: ubuntu-latest
     steps:
       - name: "Summary"
-        env:
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
-          GITHUB_ACTOR: ${{ github.actor }}
-          THRESHOLD_DAYS: ${{ github.event.inputs.threshold-days || 7 }}
-          INCLUDED_TAGS: ${{ github.event.inputs.included-tags || '*' }}
-          EXCLUDED_TAGS: ${{ github.event.inputs.excluded-tags || 'latest,release*,*.*,semver,main' }}
-          DRY_RUN: ${{ github.event.inputs.dry-run || 'false' }}
-          DEBUG: ${{ github.event.inputs.debug || 'false' }}
         run: |
           echo "**Event**: $GITHUB_EVENT_NAME"
           echo "**Actor**: $GITHUB_ACTOR"
