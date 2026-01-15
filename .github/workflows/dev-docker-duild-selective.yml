@@ -63,8 +63,7 @@ jobs:
     name: "Prepare Images and Metadata"
     runs-on: ubuntu-latest
     outputs:
-      components: ${{ steps.load.outputs.components }}
-      platforms: ${{ steps.load.outputs.platforms }}
+      packages: ${{ steps.config.outputs.config }}
       tags: "${{ steps.meta.outputs.result }}"
     steps:
       - uses: actions/checkout@v5
@@ -80,8 +79,7 @@ jobs:
           json: true
           write_output_files: true # .github/outputs/all_changed_files.json
 
-      - id: load
-        name: Load Components and Platforms
+      - name: Load Components and Platforms
         run: |
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
             components=$(jq -c '.components' ${CONFIG_FILE})
@@ -89,25 +87,35 @@ jobs:
           if [[ "$GITHUB_EVENT_NAME" == "pull_request" || "$GITHUB_EVENT_NAME" == "push" ]]; then
             all_changed_files=$(jq -c '.' .github/outputs/all_changed_files.json)
             if [ "$all_changed_files" != "null" ]; then
-                components=$(
-                  components_file="${CONFIG_FILE}"
-                  files_file=".github/outputs/all_changed_files.json"
+                components_file="${CONFIG_FILE}"
+                files_file=".github/outputs/all_changed_files.json"
 
-                  jq -c --argjson files "$(cat "$files_file")" '
-                    .components |
-                    [ .[] | select(
-                        . as $component |
-                        any($files[];
-                          [ $component.changeset[] as $ch | startswith($ch) ] | any
-                        )
+                jq -c --argjson files "$(cat "$files_file")" '
+                  .components |
+                  [ .[] | select(
+                      . as $component |
+                      any($files[];
+                        [ $component.changeset[] as $ch | startswith($ch) ] | any
                       )
-                    ]
-                  ' "$components_file"
-                )
+                    )
+                  ]
+                ' "$components_file" > /tmp/filtered_components.json
+                echo "[DEBUG BEGIN] ========================================"
+                cat /tmp/filtered_components.json
+                echo "[DEBUG END] =========================================="
+
+                jq '.components = input.components' ${CONFIG_FILE} /tmp/filtered_components.json > updated_config.json
+                echo "[DEBUG BEGIN] ========================================"
+                cat updated_config.json
+                echo "[DEBUG END] =========================================="
             fi
           fi
-          echo "components=${components}" >> "$GITHUB_OUTPUT"
-          echo "platforms=$(jq -c '.platforms' ${CONFIG_FILE})" >> "$GITHUB_OUTPUT"
+
+      - name: Get Configuration File
+        uses: netcracker/qubership-workflow-hub/actions/docker-config-resolver@c1a5c8c2d9c2a79f548134db1d095f36ee0f28e7 #v2.0.7
+        id: config
+        with:
+          file-path: "updated_config.json"
 
       - name: Create tags for images
         uses: netcracker/qubership-workflow-hub/actions/metadata-action@c1a5c8c2d9c2a79f548134db1d095f36ee0f28e7 #v2.0.7
@@ -127,7 +135,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        component: ${{ fromJson(needs.prepare.outputs.components) }}
+        component: ${{ fromJson(needs.prepare.outputs.packages) }}
     steps:
       - name: Docker
         uses: netcracker/qubership-workflow-hub/actions/docker-action@c1a5c8c2d9c2a79f548134db1d095f36ee0f28e7 #v2.0.7
@@ -136,7 +144,7 @@ jobs:
           dry-run: ${{ github.event.inputs.dry-run || github.event_name == 'pull_request' }}
           download-artifact: false
           component: ${{ toJson(matrix.component) }}
-          platforms: ${{ needs.prepare.outputs.platforms }}
+          platforms: ${{ matrix.component.platforms }}
           tags: ${{ needs.prepare.outputs.tags }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
