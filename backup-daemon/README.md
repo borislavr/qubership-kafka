@@ -6,3 +6,5 @@ You can make snapshots by schedule or via REST API. Backup Daemon allows you to 
 For information regarding API see [Development Guide](../docs/public/backup-daemon).
 
 Installation guide is provided with Kafka helm chart and is available in [Kafka Installation Guide](https://github.com/Netcracker/qubership-kafka/blob/main/documentation/installation-guide#kafka-backup-daemon)
+
+# test
