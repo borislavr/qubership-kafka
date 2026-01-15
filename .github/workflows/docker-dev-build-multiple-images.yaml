@@ -1,5 +1,5 @@
-name: Dev Docker Build
-run-name: "Dev build repository: ${{ github.ref_name }} #${{ github.run_number }}"
+name: "CI: Dev Docker Build"
+run-name: "Ref: ${{ github.ref_name }}. On ${{ github.event_name }}"
 
 on:
   workflow_dispatch:
