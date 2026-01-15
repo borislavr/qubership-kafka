@@ -4,10 +4,10 @@ run-name: "Ref: ${{ github.ref_name }}. On ${{ github.event_name }}"
 on:
   workflow_dispatch:
     inputs:
-      custom-image-name:
-        description: 'Image name. If empty, use repository name'
+      config-file:
+        description: 'Docker build configuration file'
         required: false
-        default: ''
+        default: '.qubership/docker.cfg'
       tags:
         description: 'Tags'
         required: false
@@ -49,7 +49,7 @@ permissions:
   contents: read
 
 env:
-  CONFIG_FILE: .qubership/docker.cfg
+  CONFIG_FILE: ${{ github.event.inputs.config-file || '.qubership/docker.cfg' }}
 
 jobs:
   load-config:
