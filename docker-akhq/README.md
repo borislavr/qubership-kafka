@@ -116,6 +116,3 @@ It is added to `docker-akhq` by default to the `/app/config` folder of AKHQ.
 To deserialize Streaming Platform messages produced in Protobuf format use the example above and 
 just set appropriate `topic-regex` which matches topics containing data in Protobuf format 
 (configs for `film` and `album` can be removed, it is just an example for multiple descriptors).
-
-
-# test

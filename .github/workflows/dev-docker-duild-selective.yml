@@ -104,7 +104,7 @@ jobs:
                 cat /tmp/filtered_components.json
                 echo "[DEBUG END] =========================================="
 
-                jq '.components = input.components' ${CONFIG_FILE} /tmp/filtered_components.json > updated_config.json
+                jq '.components = input' ${CONFIG_FILE} /tmp/filtered_components.json > updated_config.json
                 echo "[DEBUG BEGIN] ========================================"
                 cat updated_config.json
                 echo "[DEBUG END] =========================================="

@@ -159,5 +159,3 @@ from broker that is going to be removed from cluster to other brokers. Following
 container to perform this operation:
 `/opt/kafka/bin/kafka-partitions.sh release_broker %BROKER_ID%`
 where %BROKER_ID% is id of broker that is going to be removed from cluster.
-
-# test
