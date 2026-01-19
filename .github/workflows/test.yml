@@ -16,6 +16,8 @@ jobs:
           echo ${{ matrix.component }}
           exit ${{ matrix.component }}
   final-check:
+    needs:
+      - matrix
     runs-on: ubuntu-24.04
     steps:
       - run: |
