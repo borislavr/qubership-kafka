@@ -1,0 +1,23 @@
+on: pull_request
+name: test
+jobs:
+  matrix:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        component:
+          - 1
+          - 0
+          - 1
+          - 0
+    steps:
+      - run: |
+          echo ${{ matrix.component }}
+          exit ${{ matrix.component }}
+  final-check:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: |
+          echo "OK"
+      
