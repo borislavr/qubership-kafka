@@ -16,10 +16,14 @@ jobs:
           echo ${{ matrix.component }}
           exit ${{ matrix.component }}
   final-check:
+    if: always()
     needs:
       - matrix
     runs-on: ubuntu-24.04
     steps:
-      - run: |
-          echo "OK"
+      - name: Final check
+        if: ! needs.matrix.result == success()
+        run: |
+          echo "Not OK"
+          exit 1
       
