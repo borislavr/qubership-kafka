@@ -18,7 +18,6 @@ jobs:
   final-check:
     if: ${{ always() }}
     runs-on: ubuntu-latest
-    name: Final Results
     needs: [matrix]
     steps:
       - run: |
