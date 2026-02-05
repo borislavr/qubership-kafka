@@ -49,7 +49,6 @@ jobs:
             git checkout -b ${INTEGRATION_BUILD_BRANCH} origin/${TARGET_REF}
           fi
           git pull
-          echo "[DEBUG]: GitHub Actor: $GITHUB_ACTOR"
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
