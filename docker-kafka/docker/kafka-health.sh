@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 #exec 2>>"kafka-health.log"
 if [[ "$DEBUG" == true ]]; then
   set -x
