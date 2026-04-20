@@ -1,4 +1,4 @@
-name: Docker Hardening Check
+name: Helm Chart Hardening Check
 on:
   workflow_dispatch: {}
 permissions:
