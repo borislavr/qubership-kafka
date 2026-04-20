@@ -8,3 +8,4 @@ jobs:
     uses: borislavr/qubership-workflow-hub/.github/workflows/container-hardening.yaml@main
     with:
       config-file: .github/dev-build-config.cfg
+      manifests-path: operator/charts/helm/kafka
