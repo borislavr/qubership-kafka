@@ -41,7 +41,7 @@ jobs:
   #         poll-interval: 20
   Kafka-Pipeline:
     # needs: Wait-for-images
-    uses: borislavr/qubership-test-pipelines/.github/workflows/kafka.yaml@v1.6.1
+    uses: myborislavrorg/qubership-test-pipelines/.github/workflows/kafka.yaml@v1.6.1
     with:
       repository_name: ${{ github.repository }}
       service_branch: '${{ github.head_ref || github.ref_name }}'
