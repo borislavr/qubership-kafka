@@ -39,6 +39,7 @@ jobs:
   #         workflow: dev_build.yml
   #         token: ${{ secrets.GITHUB_TOKEN }}
   #         poll-interval: 20
+
   Kafka-Pipeline:
     # needs: Wait-for-images
     uses: myborislavrorg/qubership-test-pipelines/.github/workflows/kafka.yaml@main
