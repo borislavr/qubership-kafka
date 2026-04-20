@@ -1,0 +1,10 @@
+name: Docker Hardening Check
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  check:
+    uses: borislavr/qubership-workflow-hub/.github/workflows/container-hardening.yaml@main
+    with:
+      config-file: .github/dev-build-config.cfg
