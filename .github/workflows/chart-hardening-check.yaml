@@ -3,6 +3,7 @@ on:
   workflow_dispatch: {}
 permissions:
   contents: read
+  security-events: write
 jobs:
   check:
     uses: borislavr/qubership-workflow-hub/.github/workflows/re-helm-hardening.yaml@main
