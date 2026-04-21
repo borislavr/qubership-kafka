@@ -21,7 +21,10 @@ jobs:
           kube-score: '1.19.0'
       - name: Run kubeconform
         run: |
-          kustomize build . | kubeconform -verbose -strict -summary
+          kustomize build ./operator/charts/helm/kafka | kubeconform -verbose -strict -summary
+          kustomize build ./operator/charts/helm/kafka-service | kubeconform -verbose -strict -summary
+
       - name: Run kube-score
         run: |
-          kustomize build . | kube-score score --kubernetes-version 1.32 -
+          kustomize build ./operator/charts/helm/kafka | kube-score score --kubernetes-version 1.32 -
+          kustomize build ./operator/charts/helm/kafka-service | kube-score score --kubernetes-version 1.32 -
