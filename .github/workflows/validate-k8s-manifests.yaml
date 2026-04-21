@@ -1,30 +1,23 @@
-name: Validate Kubernetes Manifests
+name: Kubernetes Policy Check
 
 on:
   push:
+    branches: [ main ]
   pull_request:
-    branches: [master]
+    branches: [ main ]
+
+env:
+  DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }}
 
 jobs:
-  kubeconform:
+  policyCheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
-      - uses: yokawasa/action-setup-kube-tools@v0.11.2
-        with:
-          setup-tools: |
-            kustomize
-            kubeconform
-            kube-score
-          kustomize: '5.6.0'
-          kubeconform: '0.6.7'
-          kube-score: '1.19.0'
-      - name: Run kubeconform
-        run: |
-          kustomize build ./operator/charts/helm/kafka | kubeconform -verbose -strict -summary
-          kustomize build ./operator/charts/helm/kafka-service | kubeconform -verbose -strict -summary
+      - name: Checkout code
+        uses: actions/checkout@v6.0.2
 
-      - name: Run kube-score
-        run: |
-          kustomize build ./operator/charts/helm/kafka | kube-score score --kubernetes-version 1.32 -
-          kustomize build ./operator/charts/helm/kafka-service | kube-score score --kubernetes-version 1.32 -
+      - name: Run Datree Policy Check
+        uses: datreeio/action-datree@main
+        with:
+          path: '**/*.yaml'
+          cliArguments: '--only-k8s-files'
