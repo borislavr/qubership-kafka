@@ -1,0 +1,27 @@
+name: Validate Kubernetes Manifests
+
+on:
+  push:
+  pull_request:
+    branches: [master]
+
+jobs:
+  kubeconform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: yokawasa/action-setup-kube-tools@v0.11.2
+        with:
+          setup-tools: |
+            kustomize
+            kubeconform
+            kube-score
+          kustomize: '5.6.0'
+          kubeconform: '0.6.7'
+          kube-score: '1.19.0'
+      - name: Run kubeconform
+        run: |
+          kustomize build . | kubeconform -verbose -strict -summary
+      - name: Run kube-score
+        run: |
+          kustomize build . | kube-score score --kubernetes-version 1.32 -
