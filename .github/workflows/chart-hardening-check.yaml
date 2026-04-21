@@ -7,5 +7,3 @@ permissions:
 jobs:
   check:
     uses: borislavr/qubership-workflow-hub/.github/workflows/re-helm-hardening.yaml@main
-    with:
-      chart-path: operator/charts/helm
