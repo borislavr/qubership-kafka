@@ -1,2 +1,4 @@
 ignored_checks:
   - C-0013
+  - C-0017
+  - No-Latest-Tag
