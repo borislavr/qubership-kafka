@@ -19,7 +19,7 @@ charts:
     chart_file: operator/charts/helm/kafka/Chart.yaml
     values_file: operator/charts/helm/kafka/values.yaml
     image:
-      - ghcr.io/netcracker/qubership-kafka-operator:${release}
+      - ghcr.io/netcracker/qubership-kafka-operator:latest
       - ghcr.io/netcracker/qubership-docker-kafka-4:${release}
       - ghcr.io/netcracker/qubership-docker-kafka-3:${release}
       - ghcr.io/netcracker/qubership-docker-kubectl:#latest
