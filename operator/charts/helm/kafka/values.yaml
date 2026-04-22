@@ -35,7 +35,7 @@ global:
   externalKafka:
     enabled: false
 operator:
-  dockerImage: ghcr.io/netcracker/qubership-kafka-operator:main
+  dockerImage: ghcr.io/netcracker/qubership-kafka-operator:latest
   replicas: 1
   apiGroup: "netcracker.com"
   resources:
