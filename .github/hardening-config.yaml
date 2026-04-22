@@ -1,0 +1,3 @@
+hardening_rules:
+  C-0013:
+    mandatory: false
