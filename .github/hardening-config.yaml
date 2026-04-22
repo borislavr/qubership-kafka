@@ -1,3 +1,2 @@
-hardening_rules:
-  C-0013:
-    mandatory: false
+ignored_checks:
+  - C-0013
