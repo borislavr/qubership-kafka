@@ -6,5 +6,5 @@ global_ignored_checks:
 image_ignored_checks:
   ghcr.io/netcracker/qubership-kafka-integration-tests:
     - C-0013
-  ghcr.io/netcracker/qubership-docker-kafka-4
+  ghcr.io/netcracker/qubership-docker-kafka-4:
     - C-0017
