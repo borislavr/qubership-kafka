@@ -24,7 +24,7 @@ jobs:
       retain-days: ${{ inputs.retain-days }}
   cleanup-number:
     if: inputs.keep-minimum-runs > 0 && ! inputs.retain-days
-    uses: netcracker/qubership-workflow-hub/.github/workflows/re-workflow-runs-cleaner.yml@v2.3.0
+    uses: netcracker/qubership-workflow-hub/.github/workflows/re-workflow-runs-cleaner.yml@feature/old-job-runs-cleaner
     with:
       workflow-name: "${{ inputs.workflow-name }}"
       keep-minimum-runs: ${{ inputs.keep-minimum-runs }}
