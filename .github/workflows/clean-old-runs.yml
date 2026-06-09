@@ -17,12 +17,16 @@ on:
         required: false
 jobs:
   cleanup-days:
+    permissions:
+      actions: write
     if: inputs.retain-days > 0 && ! inputs.keep-minimum-runs
     uses: netcracker/qubership-workflow-hub/.github/workflows/re-workflow-runs-cleaner.yml@feature/old-job-runs-cleaner
     with:
       workflow-name: "${{ inputs.workflow-name }}"
       retain-days: ${{ inputs.retain-days }}
   cleanup-number:
+    permissions:
+      actions: write
     if: inputs.keep-minimum-runs > 0 && ! inputs.retain-days
     uses: netcracker/qubership-workflow-hub/.github/workflows/re-workflow-runs-cleaner.yml@feature/old-job-runs-cleaner
     with:
