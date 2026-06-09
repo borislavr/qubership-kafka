@@ -24,7 +24,7 @@ jobs:
     uses: netcracker/qubership-workflow-hub/.github/workflows/re-workflow-runs-cleaner.yml@feature/old-job-runs-cleaner
     with:
       workflow-name: "${{ inputs.workflow-name }}"
-      retain-days: ${{ inputs.retain-days }}
+      retain-days: "${{ inputs.retain-days }}"
   cleanup-number:
     permissions:
       actions: write
@@ -33,4 +33,4 @@ jobs:
     uses: netcracker/qubership-workflow-hub/.github/workflows/re-workflow-runs-cleaner.yml@feature/old-job-runs-cleaner
     with:
       workflow-name: "${{ inputs.workflow-name }}"
-      keep-minimum-runs: ${{ inputs.keep-minimum-runs }}
+      keep-minimum-runs: "${{ inputs.keep-minimum-runs }}"
