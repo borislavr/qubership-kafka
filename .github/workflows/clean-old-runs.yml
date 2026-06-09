@@ -9,11 +9,11 @@ on:
         required: true
       retain-days:
         description: How many days to stay
-        type: number
+        type: string
         required: false
       keep-minimum-runs:
         description: Number of runs to keep
-        type: number
+        type: string
         required: false
 jobs:
   cleanup-days:
