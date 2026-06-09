@@ -1,0 +1,30 @@
+name: Clean old workflow runs
+on:
+  workflow_dispatch:
+    inputs:
+      workflow-name:
+        description: Name of the workflow or file name
+        default: ''
+        type: string
+        required: true
+      retain-days:
+        description: How many days to stay
+        type: number
+        required: false
+      keep-minimum-runs:
+        description: Number of runs to keep
+        type: number
+        required: false
+jobs:
+  cleanup-days:
+    if: inputs.retain-days > 0 && ! inputs.keep-minimum-runs
+    uses: netcracker/qubership-workflow-hub/.github/workflows/re-workflow-runs-cleaner.yml@feature/old-job-runs-cleaner
+    with:
+      workflow-name: "${{ inputs.workflow-name }}"
+      retain-days: ${{ inputs.retain-days }}
+  cleanup-number:
+    if: inputs.keep-minimum-runs > 0 && ! inputs.retain-days
+    uses: netcracker/qubership-workflow-hub/.github/workflows/re-workflow-runs-cleaner.yml@v2.3.0
+    with:
+      workflow-name: "${{ inputs.workflow-name }}"
+      keep-minimum-runs: ${{ inputs.keep-minimum-runs }}
