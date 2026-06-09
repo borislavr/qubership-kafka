@@ -9,28 +9,20 @@ on:
         required: true
       retain-days:
         description: How many days to stay
-        type: string
         required: false
+        default: 30
       keep-minimum-runs:
         description: Number of runs to keep
-        type: string
         required: false
+        default: 10
 jobs:
   cleanup-days:
     permissions:
       actions: write
       contents: read
-    if: inputs.retain-days > 0 && ! inputs.keep-minimum-runs
     uses: netcracker/qubership-workflow-hub/.github/workflows/re-workflow-runs-cleaner.yml@feature/old-job-runs-cleaner
     with:
       workflow-name: "${{ inputs.workflow-name }}"
-      retain-days: "${{ inputs.retain-days }}"
-  cleanup-number:
-    permissions:
-      actions: write
-      contents: read
-    if: inputs.keep-minimum-runs > 0 && ! inputs.retain-days
-    uses: netcracker/qubership-workflow-hub/.github/workflows/re-workflow-runs-cleaner.yml@feature/old-job-runs-cleaner
-    with:
-      workflow-name: "${{ inputs.workflow-name }}"
-      keep-minimum-runs: "${{ inputs.keep-minimum-runs }}"
+      retain-days: ${{ inputs.retain-days }}"
+      keep-minimum-runs: ${{ inputs.keep-minimum-runs }}
+
