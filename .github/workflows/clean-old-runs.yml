@@ -2,11 +2,6 @@ name: Clean old workflow runs
 on:
   workflow_dispatch:
     inputs:
-      workflow-name:
-        description: Name of the workflow or file name
-        default: ''
-        type: string
-        required: true
       retain-days:
         description: How many days to stay
         required: false
@@ -36,7 +31,7 @@ jobs:
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
-          delete_workflow_pattern: ${{ inputs.workflow-name }}
+          delete_workflow_pattern: ${{ matrix.workflow }}
           retain_days: ${{ inputs.retain-days }}
           keep_minimum_runs: ${{ inputs.keep-minimum-runs }}
           delete_workflow_by_state_pattern: "ALL"
