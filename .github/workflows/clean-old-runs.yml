@@ -21,14 +21,24 @@ on:
         default: true
         type: boolean
 jobs:
-  cleanup-days:
+  cleanup-runs:
+    runs-on: ubuntu-latest
     permissions:
       actions: write
       contents: read
-    uses: netcracker/qubership-workflow-hub/.github/workflows/re-workflow-runs-cleaner.yml@feature/old-job-runs-cleaner
-    with:
-      workflow-name: ${{ inputs.workflow-name }}
-      retain-days: ${{ inputs.retain-days }}
-      keep-minimum-runs: ${{ inputs.keep-minimum-runs }}
-      dry-run: ${{ inputs.dry-run }}
-
+    strategy:
+      matrix:
+        workflow: ['cla.yaml', 'super-linter.yaml', 'link-checker.yaml']
+    name: ${{ matrix.workflow }}
+    steps:
+      - name: Clean old runs of ${{ matrix.workflow }}
+        uses: Mattraks/delete-workflow-runs@b3018382ca039b53d238908238bd35d1fb14f8ee  # v2.1.0
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          delete_workflow_pattern: ${{ inputs.workflow-name }}
+          retain_days: ${{ inputs.retain-days }}
+          keep_minimum_runs: ${{ inputs.keep-minimum-runs }}
+          delete_workflow_by_state_pattern: "ALL"
+          delete_run_by_conclusion_pattern: "ALL"
+          dry_run: ${{ inputs.dry-run }}
