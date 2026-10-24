@@ -27,3 +27,6 @@ testbin/*
 *output*
 *_pycache_*
 .mcp.json
+
+# Maven build output
+target/
