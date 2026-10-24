@@ -244,7 +244,7 @@ kafka:
       additionalIpAddresses: []
   environmentVariables:
     - CONF_KAFKA_AUTO_CREATE_TOPICS_ENABLE=false
-  # config: {}
+  config: {}
   # # Example: native Kafka broker property names (keys are passed verbatim to server.properties):
   # #   config:
   # #     num.io.threads: "16"
