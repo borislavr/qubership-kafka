@@ -6,6 +6,7 @@ permissions:
   actions: read
 
 on:
+  workflow_dispatch: {}
   pull_request:
     types: [opened, synchronize, reopened]
     branches: [main]
@@ -36,9 +37,9 @@ jobs:
           fi
           echo SKIP_TESTS: $SKIP_TESTS
           echo "skip_tests=$SKIP_TESTS" >> $GITHUB_OUTPUT
-      - name: Wait for push.yml to complete
+      - name: Wait for dev_build.yml to complete
         if: steps.check.outputs.skip_tests == 'false'
-        uses: netcracker/qubership-workflow-hub/actions/wait-for-workflow@8b1f50086b028c0ad22dafd33352e2166189b742  # v2.7.0
+        uses: netcracker/qubership-workflow-hub/actions/wait-for-workflow@fix/wait-for-workflow-from-fork # 8b1f50086b028c0ad22dafd33352e2166189b742  # v2.7.0
         id: wait
         with:
           workflow: dev_build.yml
