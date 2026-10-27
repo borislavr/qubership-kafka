@@ -76,14 +76,21 @@ jobs:
       - id: load
         name: Load Components and Platforms
         run: |
+          echo "ℹ️ Github event: $GITHUB_EVENT_NAME"
           if [[ "$GITHUB_EVENT_NAME" == "release" || "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
             components=$(jq -c '.components' .github/dev-build-config.cfg)
           fi
           if [[ "$GITHUB_EVENT_NAME" == "pull_request" || "$GITHUB_EVENT_NAME" == "push" ]]; then
-            all_changed_files=$(jq -c '.' .github/outputs/all_changed_files.json)
-            if [ "$all_changed_files" != "null" ]; then
+            if [ -f .github/outputs/all_changed_files.json ]; then
+              echo "ℹ️ .github/outputs/all_changed_files.json"
+              cat .github/outputs/all_changed_files.json
+              all_changed_files=$(jq -c '.' .github/outputs/all_changed_files.json)
+              if [ "$all_changed_files" != "null" ]; then
                 chmod +x .github/scripts/matrix.sh
                 components=$(./.github/scripts/matrix.sh ".github/dev-build-config.cfg" ".github/outputs/all_changed_files.json")
+              fi
+            else
+              components=$(jq -c '.components' .github/dev-build-config.cfg)
             fi
           fi
           echo "components=${components}" >> "$GITHUB_OUTPUT"
